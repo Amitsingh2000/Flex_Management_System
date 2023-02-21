@@ -9,7 +9,7 @@ public class Test
 	{
 		Scanner sc=new Scanner(System.in);
 		Manager shree=new ShreeGraphics();
-		loop:while(true)
+		while(true)
 		{
 			System.out.println("Enter Choice  = \n"
 					+ "1. For Add Customer.\n"
@@ -19,7 +19,8 @@ public class Test
 					+ "5. For Add Mounter. \n"
 					+ "6. For View Mounter. \n"
 					+ "7. For Add Amount. \n"
-					+ "8. For View Amount. \n");
+					+ "8. For View Amount. \n"
+					+ "9. For Exit");
 			int ch =sc.nextInt();
 			switch(ch)
 			{
@@ -42,15 +43,13 @@ public class Test
 					shree.viewMounter();
 					break;
 				case 7:
-					System.out.println("Enter Net Amount of Bill = ");
-					double amt=sc.nextDouble();
-					shree.addAmount(amt);
+					shree.addAmount();
 					break;
 				case 8:
 					shree.viewAmount();
 					break;
 				case 9:
-					break loop;
+					System.exit(0);
 				default:
 					System.out.println(" Enter Valid Choice ");
 			}

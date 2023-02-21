@@ -5,6 +5,7 @@ import java.util.*;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import com.flex.model.Customer;
 import com.flex.model.Location;
@@ -96,6 +97,7 @@ public class ShreeGraphics implements Manager
 				System.out.println("Recipt No = "+c.getReciptNo());
 				System.out.println("Customer Name = "+c.getCustomerName());
 				System.out.println("Customer Number = "+c.getMobileNo());
+				System.out.println("Customer Bill Amount = "+c.getAmountDetails());
 				System.out.println("<---Flex Details --->");
 				System.out.println("Location Id = "+c.getLocDetails().getLocationId());
 				System.out.println("Location Name = "+c.getLocDetails().getLocationName());
@@ -180,11 +182,17 @@ public class ShreeGraphics implements Manager
 	}
 
 	@Override
-	public void addAmount(double Amount)
+	public void addAmount()
 	{
-		double recivedAmount=Amount;
 		System.out.println("Enter Recipt No =");
 		int cust=sc.nextInt();
+		System.out.println("Enter Amount Given By Customer = ");
+		double Amount=sc.nextDouble();
+		Session session=sf.openSession();
+		Query query=session.createQuery("from Customer");
+		customerList =query.list();
+		double recivedAmount=Amount;
+		
 		if(customerList.isEmpty())
 		{
 			System.out.println("Customers Are Not Available");
@@ -196,7 +204,10 @@ public class ShreeGraphics implements Manager
 				if(cust==c.getReciptNo())
 				{
 					double remainingAmount = c.getAmountDetails()-recivedAmount;
+					Transaction tx=session.beginTransaction();
 					c.setAmountDetails(remainingAmount);
+					tx.commit();
+					session.close();
 				}
 			});
 			
@@ -206,10 +217,13 @@ public class ShreeGraphics implements Manager
 	}
 
 	@Override
-	public double viewAmount() 
+	public void viewAmount() 
 	{
 		System.out.println("Enter Recipt No =");
 		int cust=sc.nextInt();
+		Session session=sf.openSession();
+		Query query=session.createQuery("from Customer");
+		customerList =query.list();
 		if(customerList.isEmpty())
 		{
 			System.out.println("Customers Are Not Available");
@@ -220,12 +234,12 @@ public class ShreeGraphics implements Manager
 			{
 				if(cust==c.getReciptNo())
 				{
-					return c.getAmountDetails();
+					System.out.println(c.getAmountDetails());
+					session.close();
 				}
 			}
 			
 		}
-		return 0;
 		
 	}
 

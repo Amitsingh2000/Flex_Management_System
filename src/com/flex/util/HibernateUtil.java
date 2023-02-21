@@ -29,7 +29,7 @@ public class HibernateUtil {
 				//hibernate propeties
 				map.put(Environment.DIALECT, "org.hibernate.dialect.MySQLDialect");
 				map.put(Environment.HBM2DDL_AUTO, "update");
-				map.put(Environment.SHOW_SQL,"true");
+				map.put(Environment.SHOW_SQL,"false");
 				
 				
 				// create object of StandardServiceRegistryBuilder

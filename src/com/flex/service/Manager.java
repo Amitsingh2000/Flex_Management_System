@@ -8,6 +8,6 @@ public interface Manager
 	void viewLocation();
 	void addMounter();
 	void viewMounter();
-	void addAmount(double amt);
-	double viewAmount();
+	void addAmount();
+	void viewAmount();
 }
